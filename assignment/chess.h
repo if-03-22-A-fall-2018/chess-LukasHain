@@ -21,22 +21,23 @@ typedef int File;
 
 
 enum PieceType {
-  Pawn, Bishop, Knight, Rook, Queen, King, NoPiece
+  NoPiece, Pawn, Bishop, Knight, Rook, Queen, King
 };
 
 enum PieceColor{White, Black};
 
 enum MoveType { NormalMove, CaptureMove };
 
-struct ChessPiece chess_piece{
-  enum PieceColor piece_color;
-  enum PieceType piece_type;
+struct ChessPiece{
+  enum PieceColor color;
+  enum PieceType type;
 };
 
 struct ChessSquare{
+  bool is_occupied;
   Rank rank;
   File file;
-  struct ChessPieces chess_pieces;
+  struct ChessPiece piece;
 };
 
 typedef struct ChessSquare ChessBoard[8][8];
