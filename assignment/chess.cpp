@@ -173,20 +173,55 @@
    if(delta_rank<0){
      delta_rank *= -1;
    }
-   return delta_file + delta_rank == 3;
+   return delta_file + delta_rank == 3 && is_square_ok(s1_f,s1_r) && is_square_ok(s2_f,s2_r);
  }
 
  bool 	squares_share_pawns_move (enum PieceColor color, enum MoveType move, File s1_f, Rank s1_r, File s2_f, Rank s2_r)
  {
-   
+   /*int direction = -1;
+   int startposition = 6;
+   if (color == White) {
+     direction = 1;
+     startposition = 1;
+   }
+   if (!(is_square_ok(s1_f,s1_r) && is_square_ok(s2_f,s2_r)) {
+     return false;
+   }
+   if (move == NormalMove) {
+     if (startposition == 6 || startposition == 1) {
+       return s1_f == s2_f && s1_r + 2 * direction == s2_r;
+     }
+     return s1_f == s2_f && s1_r + direction == s2_r;
+   }
+   else{
+   if (startposition == 6 || startposition == 1) {
+     return (s1_f + 1 == s2_f || s1_f - 1 == s2_f) && s1_r + 2 * direction == s2_r;
+   }
+   return (s1_f + 1 == s2_f || s1_f - 1 == s2_f) && s1_r + direction == s2_r;
+ }*/
+ return false;
  }
 
  bool 	squares_share_queens_move (File s1_f, Rank s1_r, File s2_f, Rank s2_r)
  {
-   return false;
+   return squares_share_rank(s1_f, s2_f, s1_r, s2_r) || squares_share_file(s1_f, s2_f, s1_r, s2_r) || squares_share_diagonal(s1_f, s2_f, s1_r, s2_r);
  }
 
  bool 	squares_share_kings_move (File s1_f, Rank s1_r, File s2_f, Rank s2_r)
  {
-   return false;
+   int delta_file;
+   int delta_rank;
+
+   delta_file = s1_f-s2_f;
+
+   if(delta_file<0){
+     delta_file *= -1;
+   }
+
+   delta_rank = s1_r-s2_r;
+
+   if(delta_rank<0){
+     delta_rank *= -1;
+   }
+   return delta_file == 1 || delta_rank == 1;
  }
