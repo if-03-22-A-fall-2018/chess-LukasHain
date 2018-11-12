@@ -48,12 +48,13 @@
 
  bool 	add_piece (ChessBoard chess_board, File file, Rank rank, struct ChessPiece piece)
  {
-   if (!is_square_ok || chess_board[rank - 1][file - 'a'].is_occupied == true) {
+   if(!is_square_ok(file, rank) || chess_board[rank - 1][file - 'a'].is_occupied == true)
+   {
      return false;
    }
-   chess_board[rank - 1][file - 'a'].is_occupied = true;
-   chess_board[rank - 1][file - 'a'].piece = piece;
-   return true;
+   chess_board[rank - 1][file-'a'].is_occupied = true;
+   chess_board[rank - 1][file-'a'].piece = piece;
+return true;
  }
 
  struct ChessPiece 	get_piece (ChessBoard chess_board, File file, Rank rank)
@@ -178,28 +179,37 @@
 
  bool 	squares_share_pawns_move (enum PieceColor color, enum MoveType move, File s1_f, Rank s1_r, File s2_f, Rank s2_r)
  {
-   /*int direction = -1;
-   int startposition = 6;
-   if (color == White) {
-     direction = 1;
-     startposition = 1;
-   }
-   if (!(is_square_ok(s1_f,s1_r) && is_square_ok(s2_f,s2_r)) {
-     return false;
-   }
-   if (move == NormalMove) {
-     if (startposition == 6 || startposition == 1) {
-       return s1_f == s2_f && s1_r + 2 * direction == s2_r;
+   if(move==NormalMove && color==White && s1_f==s2_f && s1_r+2 == s2_r && s1_r==2)
+     {
+       return true;
      }
-     return s1_f == s2_f && s1_r + direction == s2_r;
-   }
-   else{
-   if (startposition == 6 || startposition == 1) {
-     return (s1_f + 1 == s2_f || s1_f - 1 == s2_f) && s1_r + 2 * direction == s2_r;
-   }
-   return (s1_f + 1 == s2_f || s1_f - 1 == s2_f) && s1_r + direction == s2_r;
- }*/
- return false;
+
+     else if(move==NormalMove && color==White && s1_f==s2_f && s1_r+1 == s2_r && s1_r>1)
+     {
+       return true;
+     }
+
+     else if(move==CaptureMove && color==White && (s1_f==s2_f+1 || s1_f==s2_f-1) && s1_r+1 == s2_r)
+     {
+       return true;
+     }
+
+     else if(move==NormalMove && color==Black && s1_f==s2_f && s1_r-2 == s2_r && s1_r==7)
+     {
+       return true;
+     }
+
+     else if(move==NormalMove && color==Black && s1_f==s2_f && s1_r-1 == s2_r && s1_r<8)
+     {
+       return true;
+     }
+
+     else if(move==CaptureMove && color==Black && (s1_f==s2_f+1 || s1_f==s2_f-1) && s1_r-1 == s2_r)
+     {
+       return true;
+     }
+
+return false;
  }
 
  bool 	squares_share_queens_move (File s1_f, Rank s1_r, File s2_f, Rank s2_r)
