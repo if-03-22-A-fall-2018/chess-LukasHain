@@ -54,7 +54,7 @@
    }
    chess_board[rank - 1][file-'a'].is_occupied = true;
    chess_board[rank - 1][file-'a'].piece = piece;
-return true;
+   return true;
  }
 
  struct ChessPiece 	get_piece (ChessBoard chess_board, File file, Rank rank)
