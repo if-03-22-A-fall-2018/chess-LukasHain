@@ -182,37 +182,39 @@
 
  bool 	squares_share_pawns_move (enum PieceColor color, enum MoveType move, File s1_f, Rank s1_r, File s2_f, Rank s2_r)
  {
-   if(move==NormalMove && color==White && s1_f==s2_f && s1_r+2 == s2_r && s1_r==2)
-     {
-       return true;
+     if (color == White) {
+       if (move == NormalMove) {
+         if (s1_f==s2_f && s1_r+2 == s2_r && s1_r==2) {
+           return true;
+         }
+         if (s1_f==s2_f && s1_r+1 == s2_r && s1_r>1) {
+           return true;
+         }
+       }
+       if (move == CaptureMove) {
+         if ((s1_f==s2_f+1 || s1_f==s2_f-1) && s1_r+1 == s2_r) {
+           return true;
+         }
+       }
      }
 
-     else if(move==NormalMove && color==White && s1_f==s2_f && s1_r+1 == s2_r && s1_r>1)
-     {
-       return true;
+     if (color == Black) {
+       if (move == NormalMove) {
+         if (s1_f==s2_f && s1_r-2 == s2_r && s1_r==7) {
+           return true;
+         }
+         if (s1_f==s2_f && s1_r-1 == s2_r && s1_r<8) {
+           return true;
+         }
+       }
+       if (move == CaptureMove) {
+         if ((s1_f==s2_f+1 || s1_f==s2_f-1) && s1_r-1 == s2_r) {
+           return true;
+         }
+       }
      }
 
-     else if(move==CaptureMove && color==White && (s1_f==s2_f+1 || s1_f==s2_f-1) && s1_r+1 == s2_r)
-     {
-       return true;
-     }
-
-     else if(move==NormalMove && color==Black && s1_f==s2_f && s1_r-2 == s2_r && s1_r==7)
-     {
-       return true;
-     }
-
-     else if(move==NormalMove && color==Black && s1_f==s2_f && s1_r-1 == s2_r && s1_r<8)
-     {
-       return true;
-     }
-
-     else if(move==CaptureMove && color==Black && (s1_f==s2_f+1 || s1_f==s2_f-1) && s1_r-1 == s2_r)
-     {
-       return true;
-     }
-
-return false;
+     return false;
  }
 
  bool 	squares_share_queens_move (File s1_f, Rank s1_r, File s2_f, Rank s2_r)
