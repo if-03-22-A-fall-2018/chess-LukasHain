@@ -174,6 +174,9 @@ return true;
    if(delta_rank<0){
      delta_rank *= -1;
    }
+   if (delta_file == 0 || delta_rank == 0) {
+     return false;
+   }
    return delta_file + delta_rank == 3 && is_square_ok(s1_f,s1_r) && is_square_ok(s2_f,s2_r);
  }
 
